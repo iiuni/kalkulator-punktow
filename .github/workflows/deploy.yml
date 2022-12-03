@@ -1,0 +1,19 @@
+name: deploy-kalkulator
+on: [push]
+jobs:
+  write-to-console:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        script: |
+          cd ${{ secrets.DIR }}
+          git pull origin master
+          git status
+          killall node
+          whoami
