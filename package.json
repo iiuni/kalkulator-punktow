@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iCarrrot/kalkulator-punktow.git"
+    "url": "git+https://github.com/iiuni/kalkulator-punktow.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iCarrrot/kalkulator-punktow/issues"
+    "url": "https://github.com/iiuni/kalkulator-punktow/issues"
   },
-  "homepage": "https://github.com/iCarrrot/kalkulator-punktow#readme",
+  "homepage": "https://github.com/iiuni/kalkulator-punktow#readme",
   "dependencies": {
     "acorn": ">=5.7.4",
     "bluebird": "^3.7.2",
