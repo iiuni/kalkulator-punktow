@@ -19,7 +19,7 @@
     <script>
         function max1(...args) {
             max = args[0]
-            for (var i in args) {
+            for (let i in args) {
                 args[i] > max ? max = args[i] : max = max;
             }
             console.log(max)
@@ -27,38 +27,29 @@
         }
 
         function calc_cs(dict) {
-            var sum = 0
-            if (dict.olimpiada) {
-                sum = "Po co sprawdzasz? I tak się dostaniesz."
-            } else {
+            let sum = 0;
                 sum = max1(dict.matematyka.roz * 2., dict.matematyka.podst * 0.5) +
                     max1(dict.informatyka.roz * 1., dict.informatyka.podst * 0.5) +
                     max1(dict.matematyka.roz * 0.5, dict.matematyka.podst * 0.25,
                         dict.informatyka.roz * 0.5, dict.informatyka.podst * 0.25,
                         dict.fizyka.roz * 0.5, dict.fizyka.podst * 0.25, ) +
                     max1(dict.jezyk.roz * 0.4, dict.jezyk.podst * 0.2);
-
-            }
             return sum;
         }
 
         function calc_ISIM(dict) {
-            var sum_isim = 0
-            if (dict.olimpiada) {
-                sum_isim = "Po co sprawdzasz? I tak się dostaniesz."
-            } else {
+            let sum_isim = 0
                 sum_isim = dict.matematyka.roz * 2. +
                     dict.informatyka.roz * 0.5 +
                     max1(dict.matematyka.roz * 1.5,
                         dict.informatyka.roz * 1.5,
                         dict.fizyka.roz * 1.5) +
                     max1(dict.jezyk.roz * 0.4, dict.jezyk.podst * 0.2);
-            }
             return sum_isim;
         }
 
         function Calculate() {
-            var dict1 = {
+            let dict1 = {
                 matematyka: {
                     roz: 0,
                     podst: 0
@@ -86,17 +77,19 @@
             dict1.jezyk.podst = document.getElementById('jezp').value;
             dict1.jezyk.roz = document.getElementById('jezr').value;
             dict1.olimpiada = document.getElementById('olimpiada').checked;
-
-            var res = ''
+            
+            let res = ''
             if (dict1.olimpiada) {
                 res = "Po co sprawdzasz? I tak się dostaniesz."
             } else {
                 res = `
-                <strong>informatyka:</strong> ${calc_cs(dict1)}
+                <strong>Informatyka:</strong> ${calc_cs(dict1)}
                 <br />
                 <strong>ISIM:</strong> ${calc_ISIM(dict1)}`
             }
-            
+            if (!document.querySelector("form").checkValidity())
+                res="Wyniki matury muszą być z przedziału od 0 do 100. <br>"  
+             
             document.getElementById('answer').innerHTML = res;
         }
     </script>
@@ -121,17 +114,18 @@
 
 	    <div class="collapse navbar-collapse" id="navbar-kalkulator">
 
-                <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+           <ul class="navbar-nav mr-auto">
+           <!-- <li class="nav-item active">
                         <a class="nav-link" href="https://ii.uni.wroc.pl/kalkulator">Home
                             <span class="sr-only">(current)</span>
-			</a>
+                        </li>
+			</a> -->
 		        <li class="nav-item">
-                        <a class="nav-link" href="https://ii.uni.wroc.pl/dla-studenta/questions">Informatyka UWr</a>
+                        <a class="nav-link" href="https://ii.uni.wroc.pl/dla-studenta/questions"  target="_blank">Informatyka UWr</a>
                     </li>
 		    
 		        <li class="nav-item">
-                        <a class="nav-link" href="https://www.wmi.uni.wroc.pl/isim">ISIM UWr</a>
+                        <a class="nav-link" href="https://www.wmi.uni.wroc.pl/isim"  target="_blank">ISIM UWr</a>
                     </li>
                 </ul>
             </div>
@@ -140,6 +134,7 @@
     </div>
     <br/>
     <div class="container">
+        <form>
         <table class="table table-striped">
             <tr>
                 <th class="col-3">Przedmiot</th>
@@ -189,21 +184,30 @@
             <div class="custom-control custom-checkbox mr-sm-2">
                 <input type="checkbox" class="custom-control-input" id="olimpiada">
                 <label class="custom-control-label" for="olimpiada">
-                    <h5>Finalista olimpiady</h5>
+                    Finalista olimpiady (lista zwolnień: <a href="https://rekrutacja.uni.wroc.pl/kierunek/informatyka-i-stopnia-stacjonarne-licencjackie-i-inzynierskie/#olimpiady"  target="_blank">informatyka</a>, <a href="https://rekrutacja.uni.wroc.pl/kierunek/indywidualne-studia-informatyczno-matematyczne-isim-i-stopnia-stacjonarne/#olimpiady"  target="_blank">ISIM</a>)
                 </label>
             </div>
         </div>
 
         <br>
         <button id="count" type="button" class="btn btn-primary" onclick="Calculate();">Policz</button>
-        <br>
+    
+    </form>
         <br>
 
-        <div  class="h2 " id="answer"> </div>
+        <div class="answer" id="answer"> </div>
     </div>
     <div class="jumbotron">
-
         <div class="container">
+            <h3>Więcej informacji:</h3>
+            <ul>
+                <li>Informatyka - <a href="https://ii.uni.wroc.pl/dla-studenta/questions"  target="_blank">Strona Instytutu Informatyki UWr</a></li>
+                <li>Informatyka - <a href="https://rekrutacja.uni.wroc.pl/kierunek/informatyka-i-stopnia-stacjonarne-licencjackie-i-inzynierskie/#zasady"  target="_blank">Serwis rekrutacyjny UWr</a></li>
+                <li>ISIM - <a href="https://www.wmi.uni.wroc.pl/isim"  target="_blank">Strona Wydziału Matematyki i Informatyki UWr</a></li>
+                <li>ISIM - <a href="https://rekrutacja.uni.wroc.pl/kierunek/indywidualne-studia-informatyczno-matematyczne-isim-i-stopnia-stacjonarne/#zasady"  target="_blank">Serwis rekrutacyjny UWr</a></li>
+            </ul>
+            <p>Kontakt: promocja@cs.uni.wroc.pl</p>
+
             <h3>Progi:</h3>
             <table class="table table-hover table-sm">
                 <thead>
@@ -303,11 +307,9 @@
                 </tbody>
             </table>
 
-
             <div>Na studia informatyczne kwalifikowani są wyłącznie kandydaci, którzy uzyskali co najmniej 115 punktów rekrutacyjnych oraz co
                 najmniej 30 procent punktów z egzaminu maturalnego z matematyki na poziomie rozszerzonym lub co najmniej
 		70 procent punktów z egzaminu maturalnego z matematyki na poziomie podstawowym.</div>
-
            <br>
             <br>
             <h3>Indywidualne Studia Informatyczno-Matematyczne (ISIM) - zasady liczenia punktów:</h3>
@@ -360,13 +362,6 @@
                 </tbody>
             </table>
 		<div>Na indywidualne studia informatyczno-matematyczne (ISIM) będą kwalifikowani kandydaci, którzy uzyskali co najmniej 230 punktów rekrutacyjnych.</div>
-                <br>
-
-                <strong>Więcej informacji:</strong> <br>
-                <a href="https://rekrutacja.uni.wroc.pl/kierunek/informatyka-i-stopnia-stacjonarne-licencjackie-i-inzynierskie/#zasady">Informatyka</a><br>
-                <a href="https://rekrutacja.uni.wroc.pl/kierunek/indywidualne-studia-informatyczno-matematyczne-isim-i-stopnia-stacjonarne/#zasady">ISIM</a>
-		<br>
-		<p>Kontakt: promocja@cs.uni.wroc.pl</p>
             </div>
         </div>
 </body>

@@ -86,3 +86,17 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
+input:invalid {
+  background-color: #ffdddd;
+}
+
+#answer {
+    font-size:160%;
+    font-weight: bold;
+}
+
+.custom-control-label {
+    font-size:150%;
+    margin-top: -6px;
+}
